@@ -14,7 +14,8 @@
 - 已選定 RunwayML 方向作為設計參考，但會轉譯成「流行音樂產業系」自己的視覺語言。
 - 已建立第一版首頁 demo：`index.html`、`styles.css`、`script.js`。
 - 已建立 GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
-- 已部署 GitHub Pages：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
+- GitHub Pages 曾部署於：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
+- 2026-05-17 21:02 Asia/Taipei：公開展示內容已暫時下架，首頁目前只顯示下架訊息。
 
 ## 建議位置
 
@@ -56,4 +57,5 @@ pmi-homepage-demo/
 - GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
 - GitHub Pages：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
 - 發布來源：`main` 分支 repo root
-- 狀態：已公開網址驗證
+- 狀態：已暫時下架公開展示內容
+- 完整 demo 恢復點：`f7153ec`

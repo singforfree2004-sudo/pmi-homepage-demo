@@ -16,11 +16,14 @@
 - 2026-05-17 20:54 Asia/Taipei：已將本機 `main` push 到 GitHub。
 - 2026-05-17 20:54 Asia/Taipei：已啟用 GitHub Pages，來源設定為 `main` 分支 `/(root)`。
 - 2026-05-17 20:54 Asia/Taipei：已用公開網址確認首頁、CSS、JS、Logo 與主要照片皆可讀取。
+- 2026-05-17 21:02 Asia/Taipei：依 Jay 指示，已將公開首頁替換為「網站暫時下架」頁，避免 demo 內容繼續公開瀏覽。
+- 2026-05-17 21:02 Asia/Taipei：公開網址一般請求已回傳下架頁；完整 demo 恢復點為 commit `f7153ec`。
 
 ## 正式連結
 
 - GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
 - 公開展示網址：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
+- 目前公開狀態：暫時下架，只顯示下架訊息。
 
 ## 建議 repo 名稱
 
