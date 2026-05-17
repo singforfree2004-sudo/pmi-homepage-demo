@@ -4,14 +4,23 @@
 
 ## 目前狀態
 
-- 尚未建立 GitHub repo。
-- 尚未 commit。
-- 尚未 push。
-- 尚未啟用 GitHub Pages。
-- 尚未產生公開展示網址。
+- 已建立 GitHub repo。
+- 已 commit。
+- 已 push。
+- 已啟用 GitHub Pages。
+- 已產生公開展示網址。
 - 2026-05-17：已將首頁 demo 檔案放在 repo root，方便 GitHub Pages 直接發布。
 - 2026-05-17 20:44 Asia/Taipei：已建立本機 Git commit `40bf5d6`，commit message: `Build PMI homepage demo`。
 - 2026-05-17 20:44 Asia/Taipei：此環境尚未安裝 `gh`，因此還不能由 CLI 直接建立新 GitHub repo 或啟用 Pages。
+- 2026-05-17 20:54 Asia/Taipei：已透過 GitHub 網頁建立 repo `singforfree2004-sudo/pmi-homepage-demo`。
+- 2026-05-17 20:54 Asia/Taipei：已將本機 `main` push 到 GitHub。
+- 2026-05-17 20:54 Asia/Taipei：已啟用 GitHub Pages，來源設定為 `main` 分支 `/(root)`。
+- 2026-05-17 20:54 Asia/Taipei：已用公開網址確認首頁、CSS、JS、Logo 與主要照片皆可讀取。
+
+## 正式連結
+
+- GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
+- 公開展示網址：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
 
 ## 建議 repo 名稱
 

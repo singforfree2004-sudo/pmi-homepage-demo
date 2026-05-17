@@ -13,8 +13,8 @@
 - 已下載一批公開照片與 Logo 作為 demo 素材。
 - 已選定 RunwayML 方向作為設計參考，但會轉譯成「流行音樂產業系」自己的視覺語言。
 - 已建立第一版首頁 demo：`index.html`、`styles.css`、`script.js`。
-- 尚未建立 GitHub repo。
-- 尚未部署 GitHub Pages。
+- 已建立 GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
+- 已部署 GitHub Pages：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
 
 ## 建議位置
 
@@ -24,7 +24,7 @@ AI 雲端工作區：
 AI共同工作區/02_網站與數位產品/pmi-homepage-demo
 ```
 
-正式 GitHub repo 建議日後另開，不要直接把學校正式站或 USR 官網 repo 混用。
+正式 GitHub repo 已另開，未混用學校正式站或 USR 官網 repo。
 
 ## 資料夾說明
 
@@ -51,12 +51,9 @@ pmi-homepage-demo/
     └── GitHubPages上架紀錄.md
 ```
 
-## 下一步
+## 上架資訊
 
-Jay 說「我要上架」後，建議執行：
-
-1. 建立 GitHub repo：`pmi-homepage-demo`。
-2. commit 專案根目錄中的首頁、素材與文件。
-3. push 到 GitHub。
-4. 啟用 GitHub Pages，發布來源使用 repo root。
-5. 開啟公開網址確認首頁可讀、圖片正常、手機版導覽可用。
+- GitHub repo：`https://github.com/singforfree2004-sudo/pmi-homepage-demo`
+- GitHub Pages：`https://singforfree2004-sudo.github.io/pmi-homepage-demo/`
+- 發布來源：`main` 分支 repo root
+- 狀態：已公開網址驗證
