@@ -1,0 +1,455 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link id="favicon" rel="shortcut icon" href="/Images/stut_logo.jpg" />
+<title>空間設備 | 南臺科技大學流行音樂產業系</title>
+<meta name="title" content="空間設備 | 南臺科技大學流行音樂產業系">
+<meta name="description" content="">
+<meta name="Keywords" content="南臺科技大學流行音樂產業系">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="">
+<meta property="og:description" content="">
+<meta property="og:title" content="">
+<link rel="stylesheet" href="/Css/wdesign1/css/swiper.min.css">
+<link rel="stylesheet" href="/Css/wdesign1/css/fontawesome.min.css" type="text/css" />
+<link rel="stylesheet" href="/Css/wdesign1/css/bootstrap.min.css" type="text/css" />
+<!--<link rel="stylesheet" href="/Css/wdesign1/css/public.css?20231108" type="text/css" />-->
+<link id="favicon" rel="shortcut icon" href="/Images/stut_logo.jpg" />
+  
+<link rel="stylesheet" href="/Css/wdesign1/css/components.css?20231108"/>
+<link rel="stylesheet" href="/Css/wdesign1/css/module.css"/>
+<script src="/Css/wdesign1/js/swiper.min.js"></script>
+
+  <!-- 載入 FingerprintJS -->
+
+  <script>
+    // Initialize the agent at application startup.
+    // If you're using an ad blocker or Brave/Firefox, this import will not work.
+    // Please use the npm package instead: https://t.ly/ORyXk
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v5')
+    .then(FingerprintJS => FingerprintJS.load());
+
+    (async () => {
+    // Get the visitor identifier when you need it.
+    const fp = await fpPromise
+    const result = await fp.get()
+    console.log(result.visitorId)
+    document.cookie = "fpid=" + result.visitorId + "; path=/; max-age=31536000; SameSite=Lax";
+    
+    })()
+  </script>
+
+  <!-- 載入 多語言選項 JS -->
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<style>
+  /* 處理翻譯造成的版面下移問題  */
+  html, body {
+    top: 0px !important;
+    margin-top: 0px !important;
+    position: relative !important;
+  }
+  
+
+  /* 隱藏 Google 翻譯頂部提示列 */
+  .skiptranslate {
+    display: none;
+  }
+  .goog-logo-link {
+    display: none !important;
+  }
+  .goog-te-gadget {
+    color: transparent !important;
+  }
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+  a[href="https://translate.google.com"] {
+    display: none !important;
+  }
+
+  /* 電腦版：自訂翻譯區塊的排版，使其水平對齊並置中*/
+  .custom-translate-wrapper {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 10px; /* 調整與左右元素的距離 */
+  }
+  .custom-translate-wrapper .separator {
+    color: #ffffff; /* 分隔線顏色，配合頂部選單設定為白色 */
+    margin-right: 15px;
+  }
+  .custom-translate-wrapper .translate_icon {
+    color: #ffffff; /* 地球 icon 顏色 */
+    margin-right: 8px;
+    font-size: 1.1rem;
+  }
+
+
+  /* 電腦版與 RWD 版共用的語言切換框樣式 */
+  .custom-translate-wrapper select {
+    border-radius: .6rem !important; /* 讓下拉框呈現的圓角 */
+  }
+
+  /* 手機版 (RWD)：當畫面縮小於 991px 時，將翻譯選單移至上方並滿版顯示 */
+  @media (max-width: 991px) {
+    .custom-translate-wrapper {
+      display: flex !important;
+      width: 100%; /* 滿版顯示 100% */
+      margin: 0 0 20px 0 !important; /* 修改：框底下與網站導覽之間的尺寸改為 20px */
+    }
+    .custom-translate-wrapper select {
+      flex-grow: 1; /* 讓下拉選單填滿整列的空間 */
+      width: 100% !important; /* 強制下拉選單寬度 100% */
+      max-width: none !important;
+      line-height: 2 !important; /* 修改：框的高設為 line-height: 2 */
+      height: auto !important; /* 確保 line-height 能正常撐開高度，覆蓋掉預設高度 */
+    }
+    /* 手機版排版通常不需要分隔線，將其隱藏讓畫面更乾淨 */
+    .custom-translate-wrapper .separator {
+      display: none;
+    }
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // 定義要插入的 HTML 結構 (已加入「請選取語言」預設值並修復標籤)
+    const translateHTML = `
+      <div class="translate custom-translate-wrapper">
+        <div class="translate_icon"><i class="bi bi-globe"></i></div>
+        <div id="google_translate_element" style="display: none;"></div>
+        
+        <select class="form-select form-select-sm" style="width: 136px; font-size: 1rem;" onchange="goTranslate(this.value)" translate="no">
+          <option value="" disabled selected hidden>Language</option>
+          <option value="zh-TW">繁體中文</option>
+          <option value="en">English</option>
+          <option value="vi">Vietnamese</option>
+          <option value="id">Indonesian</option>
+        </select>
+      </div>
+    `;
+
+    // 尋找目標位置：在 .quick 內的 .search 之前插入 (即 English 和 搜尋框 中間)
+    const searchDiv = document.querySelector('.quick .search');
+    if (searchDiv) {
+      searchDiv.insertAdjacentHTML('beforebegin', translateHTML);
+    } else {
+      const quickDiv = document.querySelector('.quick');
+      if (quickDiv) {
+        quickDiv.insertAdjacentHTML('afterbegin', translateHTML);
+      }
+    }
+  });
+</script>
+
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-TW',
+      autoDisplay: false,
+      includedLanguages: 'zh-TW,en,id,vi',
+      layout: google.translate.TranslateElement.InlineLayout.VERTICAL
+    }, 'google_translate_element');
+  }
+
+  // 等待 Google 翻譯元件載入完畢後，清理多餘的 DOM 節點
+  window.addEventListener('load', function() {
+    const gadget = document.querySelector('.goog-te-gadget');
+    if (gadget) {
+      const innerDiv = gadget.querySelector('div');
+      if (innerDiv) {
+        gadget.innerHTML = '';
+        gadget.appendChild(innerDiv);
+      }
+    }
+  });
+
+  // 觸發自訂翻譯的函式
+  function goTranslate(lang) {
+    if (!lang) return; // 防呆機制：如果選到空值（預設的"請選取語言"）則不執行
+    
+    const combo = document.querySelector('.goog-te-combo');
+    if (combo) {
+      combo.value = lang;
+      // 觸發 change 事件讓 Google Translate 捕捉並執行翻譯
+      const event = new Event('change');
+      combo.dispatchEvent(event);
+    }
+  }
+</script><link href='/Css/wdesign1/style_pmi_5a6aa933-6ec0-4565-b95a-37073efb4032.css' rel='stylesheet' type='text/css' /><link href="../../App_Themes/SkinFile/StyleSheet_20121025.css" type="text/css" rel="stylesheet" /><title>
+
+</title></head>
+<body class="nodeid_289">
+    <div class="custom-container">
+  <header>
+    
+    
+   
+    <div class="logo-bar">
+      <!-- Logo 開始 -->
+      
+        <a class="logo" href="https://pmi.stust.edu.tw/tc"><img alt='logo img' src='//pmi.stust.edu.tw/Sysid/pmi/STUST DPP LOGO -20250915.png' /></a>
+
+      <!-- Logo 結束 -->
+      <div class="menu-toggle-btn" onclick="Nav.open()">
+        <div>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div class="nav-bar-wrap">
+        <div class="close" onclick="Nav.close()">
+          <img src="/Css/wdesign1/images/header/nav-close.svg" alt="">
+        </div>
+      <div class="nav-bar">
+        <div class="quick-bar">
+          <div class="accesskey">
+            <a href="#" accesskey="T" title="右上角特殊選單">:::</a>
+          </div>
+          <!-- 右上角選單 開始 -->
+          <div class="quick">
+            <a class='nodeid_-1'  title='網站導覽' alt='網站導覽' href='https://pmi.stust.edu.tw/tc/node/sitemap' target='_self'><p>網站導覽</p></a><a class='nodeid_17'  title='English' alt='English' href='https://pmi.stust.edu.tw/en' target='_self'><p>English</p></a><a class='nodeid_23'  title='回首頁' alt='回首頁' href='https://pmi.stust.edu.tw/tc' target='_self'><p>回首頁</p></a><a class='nodeid_34'  title='南臺科大' alt='南臺科大' href='http://www.stust.edu.tw/' target='_self'><p>南臺科大</p></a><a class='nodeid_84'  title='班網' alt='班網' href='http://my.stust.edu.tw/class/4a41da' target='_self'><p>班網</p></a>
+          </div>
+          <!-- 右上角選單 結束 -->
+          <!-- 搜尋列 開始 -->
+          <div class="search">
+            <div class="input-wrap">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input id="searchInput" type="text" placeholder="搜尋" onkeydown="searchOnGoogle(event)">
+            </div>
+          </div>
+          <!-- 搜尋列 結束 -->
+        </div>
+        <!-- 主選單 開始 -->
+        <nav>
+          <div class="accesskey">
+            <a href="#" accesskey="M" title="上方主選單">:::</a>
+          </div>
+          <ul>
+            <li class='nodeid_212'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/news' title='最新訊息' alt='最新訊息' target=''><p>最新訊息</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_213'><a href='https://pmi.stust.edu.tw/tc/node/PMInews' title='一般公告' alt='一般公告' target=''>一般公告</a></li><li class='nodeid_214'><a href='https://pmi.stust.edu.tw/tc/node/PMIcompetition' title='競賽徵件' alt='競賽徵件' target=''>競賽徵件</a></li><li class='nodeid_284'><a href='https://pmi.stust.edu.tw/tc/node/eventpost' title='活動訊息' alt='活動訊息' target=''>活動訊息</a></li><li class='nodeid_215'><a href='https://pmi.stust.edu.tw/tc/node/PMIlicense' title='證照實習' alt='證照實習' target=''>證照實習</a></li><li class='nodeid_343'><a href='https://pmi.stust.edu.tw/tc/node/PMIconferencenews' title='學術研究' alt='學術研究' target=''>學術研究</a></li><li class='nodeid_216'><a href='https://pmi.stust.edu.tw/tc/node/PMIenrollment' title='招生資訊' alt='招生資訊' target=''>招生資訊</a></li><li class='nodeid_294'><a href='https://pmi.stust.edu.tw/tc/node/QandA' title='常見問題 Q&A' alt='常見問題 Q&A' target=''>常見問題 Q&A</a><ul class="grand-sub-nav"><li class='nodeid_307'><a href='https://pmi.stust.edu.tw/tc/node/10QA' title='解鎖10 大高中職生最想知道的南臺流音系' alt='解鎖10 大高中職生最想知道的南臺流音系' target=''>解鎖10 大高中職生最想知道的南臺流音系</a></li></ul></li></ul></div></div></div></li><li class='nodeid_217'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/PMIabout' title='系所簡介' alt='系所簡介' target=''><p>系所簡介</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_218'><a href='https://pmi.stust.edu.tw/tc/node/pmi_1' title='系所宗旨' alt='系所宗旨' target=''>系所宗旨</a></li><li class='nodeid_219'><a href='https://pmi.stust.edu.tw/tc/node/pmi_2' title='辦學特色' alt='辦學特色' target=''>辦學特色</a></li><li class='nodeid_220'><a href='https://pmi.stust.edu.tw/tc/node/pmi_3' title='教育目標 ' alt='教育目標 ' target=''>教育目標 </a></li><li class='nodeid_221'><a href='https://pmi.stust.edu.tw/tc/node/pmi_4' title='培育就業' alt='培育就業' target=''>培育就業</a></li><li class='nodeid_321'><a href='https://pmi.stust.edu.tw/tc/node/campusintro' title='校園環境' alt='校園環境' target=''>校園環境</a></li></ul></div></div></div></li><li class='nodeid_223'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/Faculty' title='師資陣容' alt='師資陣容' target=''><p>師資陣容</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_297'><a href='https://pmi.stust.edu.tw/tc/node/fulltimefaculity' title='專任師資' alt='專任師資' target=''>專任師資</a><ul class="grand-sub-nav"><li class='nodeid_311'><a href='https://pmi.stust.edu.tw/tc/node/CHENHUIJU' title='陳慧如' alt='陳慧如' target=''>陳慧如</a></li><li class='nodeid_225'><a href='https://pmi.stust.edu.tw/tc/node/t_2' title='林佩儒' alt='林佩儒' target=''>林佩儒</a></li><li class='nodeid_230'><a href='https://pmi.stust.edu.tw/tc/node/t_7' title='黃昭智' alt='黃昭智' target=''>黃昭智</a></li><li class='nodeid_231'><a href='https://pmi.stust.edu.tw/tc/node/t_8' title='林岑芳' alt='林岑芳' target=''>林岑芳</a></li><li class='nodeid_227'><a href='https://pmi.stust.edu.tw/tc/node/t_4' title='王江舜' alt='王江舜' target=''>王江舜</a></li><li class='nodeid_232'><a href='https://pmi.stust.edu.tw/tc/node/t_9' title='梁靜謙' alt='梁靜謙' target=''>梁靜謙</a></li><li class='nodeid_226'><a href='https://pmi.stust.edu.tw/tc/node/t_3' title='莊承翃' alt='莊承翃' target=''>莊承翃</a></li><li class='nodeid_312'><a href='https://pmi.stust.edu.tw/tc/node/HSUCHIHCHIEH' title='徐志杰' alt='徐志杰' target=''>徐志杰</a></li><li class='nodeid_337'><a href='https://pmi.stust.edu.tw/tc/node/yehchiachang' title='葉家彰' alt='葉家彰' target=''>葉家彰</a></li></ul></li><li class='nodeid_233'><a href='https://pmi.stust.edu.tw/tc/node/parttimefaculity' title='兼任師資' alt='兼任師資' target=''>兼任師資</a><ul class="grand-sub-nav"><li class='nodeid_253'><a href='https://pmi.stust.edu.tw/tc/node/HuangTaChun' title='黃大軍' alt='黃大軍' target=''>黃大軍</a></li><li class='nodeid_275'><a href='https://pmi.stust.edu.tw/tc/node/ChouYuehChi' title='周月綺 (小百合)' alt='周月綺 (小百合)' target=''>周月綺 (小百合)</a></li><li class='nodeid_258'><a href='https://pmi.stust.edu.tw/tc/node/ChaoTangChang' title='曹登昌' alt='曹登昌' target=''>曹登昌</a></li><li class='nodeid_188'><a href='https://pmi.stust.edu.tw/tc/node/HanLuoXian' title='韓羅賢' alt='韓羅賢' target=''>韓羅賢</a></li><li class='nodeid_315'><a href='https://pmi.stust.edu.tw/tc/node/LuanKeYong' title='欒克勇' alt='欒克勇' target=''>欒克勇</a></li><li class='nodeid_295'><a href='https://pmi.stust.edu.tw/tc/node/FengJianZhang' title='馮建彰 (二馬)' alt='馮建彰 (二馬)' target=''>馮建彰 (二馬)</a></li><li class='nodeid_259'><a href='https://pmi.stust.edu.tw/tc/node/ChangWenKuang' title='張文光' alt='張文光' target=''>張文光</a></li><li class='nodeid_260'><a href='https://pmi.stust.edu.tw/tc/node/VikungRuljadeng' title='維恭.魯那登 (吳蒙惠)' alt='維恭.魯那登 (吳蒙惠)' target=''>維恭.魯那登 (吳蒙惠)</a></li><li class='nodeid_229'><a href='https://pmi.stust.edu.tw/tc/node/t_6' title='黃偉豪 (小人)' alt='黃偉豪 (小人)' target=''>黃偉豪 (小人)</a></li><li class='nodeid_338'><a href='https://pmi.stust.edu.tw/tc/node/meiruoying' title='梅若穎' alt='梅若穎' target=''>梅若穎</a></li><li class='nodeid_348'><a href='https://pmi.stust.edu.tw/tc/node/liaodungen' title='廖惇根' alt='廖惇根' target=''>廖惇根</a></li><li class='nodeid_278'><a href='https://pmi.stust.edu.tw/tc/node/TsaiChengChung' title='蔡政忠 (馬瓜)' alt='蔡政忠 (馬瓜)' target=''>蔡政忠 (馬瓜)</a></li><li class='nodeid_262'><a href='https://pmi.stust.edu.tw/tc/node/LienHsiaoYun' title='連筱筠' alt='連筱筠' target=''>連筱筠</a></li><li class='nodeid_263'><a href='https://pmi.stust.edu.tw/tc/node/HsuYiSheng' title='許逸聖' alt='許逸聖' target=''>許逸聖</a></li><li class='nodeid_264'><a href='https://pmi.stust.edu.tw/tc/node/WangMeiChi' title='王媺棋' alt='王媺棋' target=''>王媺棋</a></li><li class='nodeid_302'><a href='https://pmi.stust.edu.tw/tc/node/CiouAnWei' title='邱安煒 (小煒)' alt='邱安煒 (小煒)' target=''>邱安煒 (小煒)</a></li><li class='nodeid_266'><a href='https://pmi.stust.edu.tw/tc/node/WangNaiChing' title='王乃慶' alt='王乃慶' target=''>王乃慶</a></li><li class='nodeid_336'><a href='https://pmi.stust.edu.tw/tc/node/ChenJiAn' title='陳集安' alt='陳集安' target=''>陳集安</a></li><li class='nodeid_267'><a href='https://pmi.stust.edu.tw/tc/node/ChanYiLinTrevor' title='林振益' alt='林振益' target=''>林振益</a></li><li class='nodeid_268'><a href='https://pmi.stust.edu.tw/tc/node/KuoChunSheng' title='郭俊昇' alt='郭俊昇' target=''>郭俊昇</a></li><li class='nodeid_269'><a href='https://pmi.stust.edu.tw/tc/node/lwhsieh' title='芙賽‧以撒 (謝婉琳)' alt='芙賽‧以撒 (謝婉琳)' target=''>芙賽‧以撒 (謝婉琳)</a></li><li class='nodeid_271'><a href='https://pmi.stust.edu.tw/tc/node/WuSzui' title='吳思毅' alt='吳思毅' target=''>吳思毅</a></li><li class='nodeid_272'><a href='https://pmi.stust.edu.tw/tc/node/LHM' title='李泓博' alt='李泓博' target=''>李泓博</a></li><li class='nodeid_322'><a href='https://pmi.stust.edu.tw/tc/node/weichaohsin' title='魏肇新' alt='魏肇新' target=''>魏肇新</a></li><li class='nodeid_340'><a href='https://pmi.stust.edu.tw/tc/node/divyns' title='狄文斯 (Divyns) ' alt='狄文斯 (Divyns) ' target=''>狄文斯 (Divyns) </a></li><li class='nodeid_342'><a href='https://pmi.stust.edu.tw/tc/node/Chenjunli' title='陳俊利' alt='陳俊利' target=''>陳俊利</a></li><li class='nodeid_347'><a href='https://pmi.stust.edu.tw/tc/node/Humingshien' title='胡銘顯 (皮卡丘)' alt='胡銘顯 (皮卡丘)' target=''>胡銘顯 (皮卡丘)</a></li><li class='nodeid_349'><a href='https://pmi.stust.edu.tw/tc/node/leechienlun' title='李阡綸' alt='李阡綸' target=''>李阡綸</a></li><li class='nodeid_350'><a href='https://pmi.stust.edu.tw/tc/node/changchihyu' title='張志宇' alt='張志宇' target=''>張志宇</a></li></ul></li></ul></div></div></div></li><li class='nodeid_289'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/apparatus' title='空間設備' alt='空間設備' target=''><p>空間設備</p></a></div></li><li class='nodeid_234'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/course' title='課程介紹' alt='課程介紹' target=''><p>課程介紹</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_235'><a href='https://pmi.stust.edu.tw/tc/node/course_1' title='實務講座' alt='實務講座' target=''>實務講座</a></li><li class='nodeid_238'><a href='https://pmi.stust.edu.tw/tc/node/course_4' title='實務課程' alt='實務課程' target=''>實務課程</a></li><li class='nodeid_313'><a href='https://pmi.stust.edu.tw/tc/node/coursetable' title='課程時序表' alt='課程時序表' target=''>課程時序表</a></li><li class='nodeid_222'><a href='https://pmi.stust.edu.tw/tc/node/pmi_5' title='課程地圖' alt='課程地圖' target=''>課程地圖</a></li></ul></div></div></div></li><li class='nodeid_285'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/performance' title='成果績效' alt='成果績效' target=''><p>成果績效</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_236'><a href='https://pmi.stust.edu.tw/tc/node/course_2' title='成果發表' alt='成果發表' target=''>成果發表</a></li><li class='nodeid_237'><a href='https://pmi.stust.edu.tw/tc/node/course_3' title='競賽得獎' alt='競賽得獎' target=''>競賽得獎</a></li><li class='nodeid_293'><a href='https://pmi.stust.edu.tw/tc/node/mediareports' title='媒體報導' alt='媒體報導' target=''>媒體報導</a></li><li class='nodeid_316'><a href='https://pmi.stust.edu.tw/tc/node/PMIactivity' title='活動集錦' alt='活動集錦' target=''>活動集錦</a></li></ul></div></div></div></li><li class='nodeid_288'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/regulationsforms' title='規章表單' alt='規章表單' target=''><p>規章表單</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_244'><a href='https://pmi.stust.edu.tw/tc/node/students' title='大學部修業辦法' alt='大學部修業辦法' target=''>大學部修業辦法</a></li><li class='nodeid_245'><a href='https://pmi.stust.edu.tw/tc/node/download_st' title='學生相關表單' alt='學生相關表單' target=''>學生相關表單</a></li><li class='nodeid_280'><a href='https://pmi.stust.edu.tw/tc/node/PracticalExperiencePointQuery' title='★實務積點查詢' alt='★實務積點查詢' target=''>★實務積點查詢</a></li><li class='nodeid_353'><a href='https://pmi.stust.edu.tw/tc/node/RoomBookingQuery' title='★空間借用狀況查詢' alt='★空間借用狀況查詢' target=''>★空間借用狀況查詢</a></li><li class='nodeid_351'><a href='https://pmi.stust.edu.tw/tc/node/recordingstudioreg' title='錄音室借用登記' alt='錄音室借用登記' target=''>錄音室借用登記</a></li><li class='nodeid_277'><a href='https://pmi.stust.edu.tw/tc/node/bandpracticeroomreg' title='團練室借用登記' alt='團練室借用登記' target=''>團練室借用登記</a></li><li class='nodeid_345'><a href='https://pmi.stust.edu.tw/tc/node/TeachSpaceEquipmentRule' title='教學空間/器材相關辦法' alt='教學空間/器材相關辦法' target=''>教學空間/器材相關辦法</a></li><li class='nodeid_247'><a href='https://pmi.stust.edu.tw/tc/node/download_tool' title='教學空間/器材相關表單' alt='教學空間/器材相關表單' target=''>教學空間/器材相關表單</a></li><li class='nodeid_282'><a href='https://pmi.stust.edu.tw/tc/node/t-r' title='教師相關辦法' alt='教師相關辦法' target=''>教師相關辦法</a></li><li class='nodeid_246'><a href='https://pmi.stust.edu.tw/tc/node/download_th' title='教師相關表單' alt='教師相關表單' target=''>教師相關表單</a></li><li class='nodeid_283'><a href='https://aric.stust.edu.tw/tc/node/coaching_304_02' title='職涯發展與實習輔導' alt='職涯發展與實習輔導' target='_blank'>職涯發展與實習輔導</a></li></ul></div></div></div></li><li class='nodeid_249'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/PMIexam' title='招生簡章' alt='招生簡章' target=''><p>招生簡章</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_243'><a href='https://pmi.stust.edu.tw/tc/node/exam-107' title='107學年度招生資訊' alt='107學年度招生資訊' target=''>107學年度招生資訊</a></li><li class='nodeid_274'><a href='https://pmi.stust.edu.tw/tc/node/108exam' title='108學年度招生資訊' alt='108學年度招生資訊' target=''>108學年度招生資訊</a></li><li class='nodeid_305'><a href='https://pmi.stust.edu.tw/tc/node/exam-109' title='109學年度招生資訊' alt='109學年度招生資訊' target=''>109學年度招生資訊</a></li><li class='nodeid_320'><a href='https://pmi.stust.edu.tw/tc/node/exam-110' title='110學年度招生資訊' alt='110學年度招生資訊' target=''>110學年度招生資訊</a></li><li class='nodeid_335'><a href='https://pmi.stust.edu.tw/tc/node/exam-111' title='111學年度招生資訊' alt='111學年度招生資訊' target=''>111學年度招生資訊</a></li><li class='nodeid_341'><a href='https://pmi.stust.edu.tw/tc/node/exam-112' title='112學年度招生資訊' alt='112學年度招生資訊' target=''>112學年度招生資訊</a></li><li class='nodeid_346'><a href='https://pmi.stust.edu.tw/tc/node/exam-113' title='113學年度招生資訊' alt='113學年度招生資訊' target=''>113學年度招生資訊</a></li><li class='nodeid_352'><a href='https://pmi.stust.edu.tw/tc/node/exam-114' title='114學年度招生資訊' alt='114學年度招生資訊' target=''>114學年度招生資訊</a></li><li class='nodeid_355'><a href='https://pmi.stust.edu.tw/tc/node/exam-115' title='115學年度招生資訊' alt='115學年度招生資訊' target=''>115學年度招生資訊</a></li></ul></div></div></div></li><li class='nodeid_242'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/PMIpmi' title='系學生會' alt='系學生會' target=''><p>系學生會</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_250'><a href='https://pmi.stust.edu.tw/tc/node/student_as_about' title='系學生會介紹' alt='系學生會介紹' target=''>系學生會介紹</a></li><li class='nodeid_303'><a href='https://pmi.stust.edu.tw/tc/node/Studentunimember' title='系學生會成員' alt='系學生會成員' target=''>系學生會成員</a></li><li class='nodeid_304'><a href='https://pmi.stust.edu.tw/tc/node/Studentunicharter' title='系學生會組織章程' alt='系學生會組織章程' target=''>系學生會組織章程</a></li><li class='nodeid_251'><a href='https://pmi.stust.edu.tw/tc/node/student_as' title='系學生會活動' alt='系學生會活動' target=''>系學生會活動</a></li></ul></div></div></div></li><li class='nodeid_310'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/camp' title='活動營隊' alt='活動營隊' target=''><p>活動營隊</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_308'><a href='https://pmi.stust.edu.tw/tc/node/summercamp' title='流音之星 │ 音樂夏令營' alt='流音之星 │ 音樂夏令營' target=''>流音之星 │ 音樂夏令營</a><ul class="grand-sub-nav"><li class='nodeid_309'><a href='https://pmi.stust.edu.tw/tc/node/2020summercamp' title='2020流音之星-音樂夏令營' alt='2020流音之星-音樂夏令營' target=''>2020流音之星-音樂夏令營</a></li></ul></li><li class='nodeid_319'><a href='https://pmi.stust.edu.tw/tc/node/wintercamp' title='流音之星 │ 音樂冬令營' alt='流音之星 │ 音樂冬令營' target=''>流音之星 │ 音樂冬令營</a><ul class="grand-sub-nav"><li class='nodeid_318'><a href='https://pmi.stust.edu.tw/tc/node/2021wintercamp' title='2021流音之星-音樂冬令營' alt='2021流音之星-音樂冬令營' target=''>2021流音之星-音樂冬令營</a></li></ul></li></ul></div></div></div></li><li class='nodeid_324'><div class="main-nav"><a href='https://pmi.stust.edu.tw/tc/node/Singsong' title='Sing時代之歌' alt='Sing時代之歌' target=''><p>Sing時代之歌</p></a><img src="/Css/wdesign1/images/icon-arrow.svg" alt=""> <div class="sub-nav-wrap"><div class="sub-nav"><div class="line"></div><ul><li class='nodeid_325'><a href='https://pmi.stust.edu.tw/tc/node/singsongintro' title='活動緣起' alt='活動緣起' target=''>活動緣起</a></li><li class='nodeid_327'><a href='https://pmi.stust.edu.tw/tc/node/singsongreg' title='競賽報名' alt='競賽報名' target=''>競賽報名</a></li><li class='nodeid_332'><a href='https://pmi.stust.edu.tw/tc/node/singsongbon' title='評選方式與獎勵' alt='評選方式與獎勵' target=''>評選方式與獎勵</a></li><li class='nodeid_328'><a href='https://pmi.stust.edu.tw/tc/node/singsongregpassaward' title='歷屆得獎作品' alt='歷屆得獎作品' target=''>歷屆得獎作品</a></li><li class='nodeid_329'><a href='https://pmi.stust.edu.tw/tc/node/singsongdl' title='詩作檔案下載' alt='詩作檔案下載' target=''>詩作檔案下載</a><ul class="grand-sub-nav"><li class='nodeid_330'><a href='https://pmi.stust.edu.tw/tc/node/singsongtla' title='臺南文學獎得獎詩作' alt='臺南文學獎得獎詩作' target=''>臺南文學獎得獎詩作</a></li><li class='nodeid_331'><a href='https://pmi.stust.edu.tw/tc/node/singsongnw' title='南寧文學家作品' alt='南寧文學家作品' target=''>南寧文學家作品</a></li></ul></li></ul></div></div></div></li>
+          </ul>
+        </nav>
+        <!-- 主選單 結束 -->
+      </div>
+    </div>
+  </header>
+  <div class="main-container">
+    <div class="-container">
+      <!-- banner 內頁banner圖 開始 -->
+      <div class="-banner-wrap">
+        <div class="banner" Style="background-image: url('//pmi.stust.edu.tw/Sysid/pmi/logo.png');" title="banner圖片"></div>  <div class="banner-swiper-frame" style="display:none;"><div class="swiper"><div class="swiper-wrapper">  <div class="swiper-slide">  <img src="//pmi.stust.edu.tw/Sysid/pmi/banner輪播/00011dacapo20262309s1.jpg" alt="Banner輪播圖片"></div><div class="swiper-slide">  <img src="//pmi.stust.edu.tw/Sysid/pmi/banner輪播/00012025金曲36-阿蒙老師banner-A.jpg" alt="Banner輪播圖片"></div><div class="swiper-slide">  <img src="//pmi.stust.edu.tw/Sysid/pmi/banner輪播/002024 Admissions-1.jpg" alt="Banner輪播圖片"></div><div class="swiper-slide">  <img src="//pmi.stust.edu.tw/Sysid/pmi/banner輪播/012024 Admissions-2.jpg" alt="Banner輪播圖片"></div></div></div><div class="navigator-wrap">  <div class="navigator-btn prev"><img src="/Css/wdesign1/images/icon-banner-prev.svg" alt="">  </div>  <div class="navigator-btn next"><img src="/Css/wdesign1/images/icon-banner-next.svg" alt="">  </div></div>  </div>
+      
+      </div>
+      <!-- banner 內頁banner圖 結束 -->
+      <!-- 麵包屑 開始 -->
+      <div class="breadcrumb-wrap">
+        <div class="breadcrumb">
+         <div class="dot"></div><a href="https://pmi.stust.edu.tw/tc">目前位置：主選單</a><div class="dot"></div><a href="https://pmi.stust.edu.tw/tc/node/apparatus">空間設備</a>
+        </div>
+      </div>
+      <!-- 麵包屑 結束 -->
+      
+      <main>
+        <div class="accesskey">
+          <a href="#" accesskey="C" title="網頁內容區塊">:::</a>
+        </div>
+        <div class="-container">
+          
+          <div class="content-wrap">
+            
+            <!-- 內容 開始 -->
+            <!-- 內容 - 一般頁面模組 開始 --><section class="-module-normal-wrap -module"><div class="-sec-tit"><p>空間設備</p><div class="line"></div></div><div class="body">  <!--Content Begin-->  <div style="text-align: left;"><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;"><strong>&nbsp;&nbsp;<br/>&nbsp; │小型演奏</strong></span></span></span><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><strong>廳</strong><strong>(W902)</strong></span></span></span><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;">&nbsp;<span style="color: #666699;">(2020.02啟用，斥資千萬打造60席專業小型音樂廳)</span></span></span><br/><strong><span style="font-size: 24pt; color: #666699;">&nbsp;&nbsp;</span></strong><br/><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;"><strong><img style="width: 750px; height: 562px;" src="/Sysid/pmi/odx5cipa.jpg"/><br/><img style="width: 750px; height: 562px;" src="/Sysid/pmi/W901902_23.jpg"/><br/><br/>&nbsp; │</strong></span></span></span><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><strong>專業練習室</strong><strong>(W901)</strong></span></span></span><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;">&nbsp;<span style="color: #666699;">(2019.02啟用，斥資千萬新設8間小型專業練習室)<span id="dx_temp_1594836183115_185"></span></span></span></span><br/><br/><br/><img style="width: 750px; height: 562px;" src="/Sysid/pmi/W901902_5.jpg"/><br/><img style="width: 750px; height: 562px;" src="/Sysid/pmi/W901902_3.jpg"/><br/><img src="/Sysid/pmi/W901 1-6_210419.jpg" style="margin: auto; width: 750px;"/><br/>&nbsp;<span style="font-size: 36pt;">&nbsp;<br/><br/><strong><span style="font-size: 24pt; color: #666699;">&nbsp; </span></strong></span><span style="font-size: 36pt;"><strong><span style="font-size: 24pt;"><span style="color: #666699;">│大型</span></span></strong></span><span style="font-size: 24pt;"><strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;">專業音樂廳</span></span></strong></span><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;"> <span style="color: #666699;">(2019.05啟用，斥資2300萬打造400位觀眾席專業音樂廳)</span></span></span><br/><br style="margin: auto; width: 750px;" src="/Sysid/pmi/64781162_10156090954495964_3412889581584908288_o.jpg" img=""/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/61034574_1047059332150434_2379229852680060928_o.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64618086_10156090954720964_8269124062819647488_o.jpg"/><br/><br/><br/><span style="font-size: 36pt;"><strong><span style="font-size: 24pt;"><span style="color: #666699;"><br/>&nbsp; │</span></span></strong></span><span style="font-size: 24pt;"><strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;">演唱會大型400吋數位電子螢幕/電視牆</span></span></strong></span><span style="font-size: 24pt;"><strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"> &nbsp;</span></span></strong></span><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;"><span style="color: #666699;">(2019.05啟用)</span></span></span><br/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/60420808_1047059325483768_2761109860417273856_o.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/61922936.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/60507405_1045925232263844_3148571534637924352_o.jpg"/><br/><br/><br/><span style="font-size: 36pt;"><strong><span style="font-size: 24pt;"><span style="color: #666699;"><br/>&nbsp; │</span></span></strong></span><span><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><strong>專業錄音室(W1006)</strong></span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><br/><strong><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64588761_10156090953975964_5989431619117645824_o.jpg"/><br/></strong></span></span></span><strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64600818_10156090953860964_1116270444136103936_o.jpg"/><br/><img src="/Sysid/pmi/錄音室_210419.jpg" style="margin: auto; width: 750px;"/><br/><br/></span></span><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;">&nbsp; <br/>&nbsp; │</span></span></span><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;">數位音樂教室(W1002)</span></span></span></strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><strong> </strong></span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><br/><strong><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64460249_10156090953965964_2322528347273297920_o.jpg"/><br/><br/><br/></strong></span></span><strong><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;">&nbsp;&nbsp;<br/>&nbsp; │</span></span></span><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;">排練廳(W1001)</span></span></span></strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/></span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><br/><strong><img style="margin: auto; width: 750px; min-width: 0px;" src="/Sysid/pmi/3.W1001排練廳.jpg"/><br/><img style="margin: auto; width: 750px; min-width: 0px;" src="/Sysid/pmi/4.W1001排練廳.jpg"/><br/><br/><br/></strong></span></span><strong><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;">&nbsp; <br/>&nbsp; │</span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 24pt;">團練室</span></span></span></strong></span><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;"><span style="color: #666699;">(各年級專屬團練空間；團練室 X 3)</span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><br/><strong><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64913017_10156090954110964_3811485460304232448_o.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64477658_10156090954100964_7097637102514339840_o.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64522258_10156090954070964_3875096395564187648_o.jpg"/><br/><br/><br/></strong><span style="font-size: 24pt;"><strong>&nbsp; <br/></strong><strong>&nbsp; │專修練習室</strong></span></span></span></span><span style="color: #666699;"><span style="font-family: 微軟正黑體;"><span style="font-size: 14pt;">(Vocal/Piano/Keyboard/Guitar/Acoustic Guitar/Bass/Drum)</span></span><br/></span><span style="font-family: 微軟正黑體;"><span style="font-size: 12pt;"><span style="color: #666699;"><span style="font-family: 微軟正黑體;"><br/><strong><img style="margin: auto; width: 750px; min-width: 0px;" src="/Sysid/pmi/19.練習室.jpg"/><br/><br/></strong></span></span></span></span><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">│專修練習室(</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">練習室</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">4)<br/><img src="/Sysid/pmi/練習室4_210419.jpg" style="margin: auto; width: 750px;"/><br/><br/></strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">│專修練習室(</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">練習室</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">5)</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;"><br/><img src="/Sysid/pmi/練習室5_210419.jpg" style="margin: auto; width: 750px;"/></strong></div><div style="text-align: left;"><br/><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">│專修練習室(</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">練習室</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">8)</strong><span style="font-family: 微軟正黑體;"><span style="font-size: 12pt;"><span style="color: #666699;"><span style="font-family: 微軟正黑體;"><strong><strong><span style="font-size: 24pt;"><br/><img src="/Sysid/pmi/練習室8_2104191.jpg" style="margin: auto; width: 750px;"/><br/><br/></span></strong></strong></span></span></span></span><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">│專修練習室(</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">練習室</strong><strong style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">9)<br/><img src="/Sysid/pmi/練習室9_210419_0.jpg" style="margin: auto; width: 750px;"/> </strong><span style="font-family: 微軟正黑體;"><span style="font-size: 12pt;"><span style="color: #666699;"><span style="font-family: 微軟正黑體;"><strong><strong><span style="font-size: 24pt;"><br/><br/>│演藝經紀教室</span></strong></strong></span></span></span><span style="color: #666699;"><span style="font-family: 微軟正黑體;"><strong><span style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><strong>(W1012)</strong></span></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/></span></span></span><br/><strong>&nbsp;<img style="margin: auto; width: 750px; min-width: 0px;" src="/Sysid/pmi/8.W1012演藝經紀教室.jpg"/></strong><strong><span style="font-size: 24pt;">&nbsp;&nbsp;</span></strong></strong></span></span><span style="font-family: 微軟正黑體;"></span><strong><span style="font-size: 36pt;"><span style="font-size: 24pt;"><span style="color: #666699;"><br/><strong>&nbsp;&nbsp;<br/>&nbsp; │</strong></span></span></span><span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><strong><span style="font-size: 24pt;">MAC 教室</span></strong></span></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><br/><strong> </strong></span></span></span><span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span><br/></span></span></span></span><strong style="font-size: 24pt;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><img style="margin: auto; width: 750px;" src="/Sysid/pmi/64675527_10156090953680964_2606827140427022336_n.jpg"/><br/><br/><br/></span></span></strong><span style="font-size: 36pt;"><strong><span style="font-size: 24pt;"><span style="color: #666699;">&nbsp; │</span></span></strong></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 32px;"><b>Avid Pro Tools 國際錄音認證教學中心</b></span></span></span><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><br/></span></span></span></strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 32px;"><b><img style="margin: auto; width: 750px;" src="/Sysid/pmi/avid protools.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/0einjsr0.jpg"/> <br/><br/><br/> </b></span><b style="font-size: 24pt;">&nbsp;</b></span></span></strong></span><strong><span style="font-size: 36pt;"><strong><span style="font-size: 24pt;"><span style="color: #666699;">│</span></span></strong></span><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 32px;"><b>演唱會舞臺搭建 千萬</b></span></span></span><b style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">專業</b><b style="color: #666699; font-family: 微軟正黑體; font-size: 32px;">設備</b><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span><b style="font-size: 32px;">/</b><span style="font-size: 32px;"><b>TRUSS/</b></span><b style="font-size: 32px;">燈光/音響</b></span></span></span><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><br/><img src="/Sysid/pmi/165121274.jpg" style="margin: auto; width: 750px;"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/36869987_1837954236499528_3512848687631958016_o.jpg"/><br/></span></span></span></strong></strong><strong><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><img src="https://pmi.stust.edu.tw/Sysid/pmi/36973617_1838836796411272_8681210025793814528_o.jpg" style="margin: auto; width: 750px;"/></span></span></span></strong></strong><strong><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/36874235_1837954523166166_5970804822696263680_o.jpg"/><br/><img style="margin: auto; width: 750px;" src="/Sysid/pmi/12710770_1519759998318955_8823198999750932598_o.jpg"/><br/></span></span></span></strong><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><img style="margin: auto; width: 750px;" src="https://pmi.stust.edu.tw/Sysid/pmi/62169742_1088842857970209_2013352987577024512_n.jpg"/><br/> </span></span></span></strong><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span><b style="font-size: 32px;"> </b></span></span></span><strong style="font-size: 32px;"><span style="font-family: 微軟正黑體;"><span style="color: #666699;"><span style="font-size: 12pt;"><img style="margin: auto; width: 750px;" src="https://pmi.stust.edu.tw/Sysid/pmi/54730414_1991557594472524_2202868462462697472_o.jpg"/></span></span></span></strong><br/><br/><br/> </strong></div>  <!--Content End--></div></section><!-- 內容 - 一般頁面模組 結束 -->
+            <!-- 內容 結束 -->
+          </div>
+        </div>
+      </main>
+    </div>
+    <div class="-container">
+      
+
+      
+
+      <!-- 右區塊 開始 -->
+      <div class="bottom-swiper-wrap">  <div class="bottom-swiper-frame "><div class="swiper">  <div class="swiper-wrapper">   <!-- 右區塊內文範例 BEGIN --><!--<div class="swiper-slide">  <a href=""><img src="/Css/wdesign1/images/bottom-slider/img-2.png" alt="">  </a></div>--><!-- 右區塊內文範例 END -->                    <div style="text-align: center;">
+<a href="https://www.instagram.com/stust_pmi/"><img style="margin: auto; width: 170px;" src="../../Sysid/pmi/LOGO/instagram-PMI.jpg"/></a><br/>
+<a href="https://pmi.stust.edu.tw/tc/node/performance"><img style="margin: auto; width: 170px; height: 49px;" src="/Sysid/pmi/成果績效 未來走向.jpg"/></a><br/>
+<a href="https://www.facebook.com/stust.pmi/"><img style="margin: auto; width: 170px;" src="../../Sysid/pmi_en/流音系粉專.png"/></a><br/>
+<a href="https://pmi.stust.edu.tw/tc/node/recordingstudioreg"><img style="margin: auto; width: 170px; height: 49px;" src="/Sysid/pmi/rec1.jpg"/></a><br/>
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSfb3TPsjAvs2upxXzgzOHlf1KnuDeOesDikSP_2cYmbdyGRSA/viewform?fbclid=IwAR2JIXs1BxmrqxHndODPab9EZMMb16sfsYg1hxL0wWbSmra8uR2kIAd_-yc"><img style="margin: auto; width: 170px;" src="../../Sysid/pmi_en/hcug3.jpg"/></a><br/>
+<a href="https://pmi.stust.edu.tw/tc/node/bandpracticeroomreg"><img style="margin: auto; width: 170px;" src="../../Sysid/pmi_en/hcug3mnm.png"/></a><br/>
+<a href="https://pmi.stust.edu.tw/tc/node/summercamp"><img style="margin: auto; width: 170px; height: 63px; min-width: 0px;" src="../../Sysid/pmi/icon/hiphop summer camp2020-logo-s.jpg"/><br/><img style="width: 170px; height: 63px;" src="/Sysid/pmi/2021流音之星冬令營-banner.jpg"/>
+</a><br/><a href="https://www.facebook.com/%E5%8D%97%E8%87%BA%E7%A7%91%E5%A4%A7-2020%E5%98%BB%E5%93%88%E5%86%AC%E4%BB%A4%E7%87%9F-105220394284783/"><img style="width: 170px; height: 63px;" src="/Sysid/pmi/hiphop winter camp2018-logo-s.jpg"/></a><br/>
+
+<a href="https://www.facebook.com/Lionsound1/"><img style="margin: auto; width: 170px; height: 65px;" src="/Sysid/pmi/Leon sing-logo-s1.png"/></a><br/>
+<iframe width="170" height="95" src="https://www.youtube.com/embed/u5qIgPjWTkU?controls=0" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; loop; encrypted-media; gyroscope; picture-in-picture"></iframe>
+<br/><iframe width="170" height="95" src="https://www.youtube.com/embed/kvo85DpFNa0?controls=0" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; loop; encrypted-media; gyroscope; picture-in-picture"></iframe><br/><iframe width="170" height="95" src="https://www.youtube-nocookie.com/embed/-8IpRehVgKE?controls=0&amp;start=772&amp;end=954" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; loop; encrypted-media; gyroscope; picture-in-picture"></iframe></div><div id="flexblock_extensioninstalled"></div><div id="flexblock_extensioninstalled"></div>  </div></div><div class="swiper-pagination"></div><div class="navigation">  <div class="prev"><img src="/Css/wdesign1/images/bottom-slider/icon-prev.svg" alt="">  </div>  <div class="next"><img src="/Css/wdesign1/images/bottom-slider/icon-next.svg" alt="">  </div></div>  </div></div>
+      <!-- 右區塊 結束 -->
+    </div>
+    <div class="pb"></div>
+  </div>
+  <!-- 頁尾footer 開始 -->
+  <footer>
+    <div class="accesskey">
+      <a href="#" accesskey="F" title="下方導覽區">:::</a>
+    </div>
+    <div class="top-container">
+      <div class="-container">
+                 <div>
+            <img src="../../Sysid/society/images/logo.svg" alt=""/> <!-- 右邊欄位的 LOGO 圖檔連結，若要替換請將新 LOGO 取代 src="" 引號裡的內容。 -->
+            <p>南臺科技大學 流行音樂產業系<br/>Department of Popular Music Industry, <br/>Southern Taiwan University of Science and Technology </p> <!-- 單位名稱，可自行修改文字內容 -->
+          </div>
+          <div>
+            <dl>
+              <dt>
+                <p>聯絡我們</p> <!-- 左邊欄位的標題，可自行修改文字內容 -->
+              </dt>
+              <dd>
+
+                <img src="../../Sysid/society/images/icon-map.svg" alt=""/>
+                <p>71005 台南市永康區南台街一號<br/>Rm. W1011, No.1, Nantai St., Yongkang Dist., Tainan City 71005, Taiwan (R.O.C.) </p> <!-- 左邊欄位的地址，可自行修改文字內容 -->
+              </dd>
+              <dd>
+                <img src="../../Sysid/society/images/icon-tel.svg" alt=""/>
+                <p>+886-6-253-3131 ext.7201 潘瀅棻助教</p> <!-- 左邊欄位的電話，可自行修改文字內容 -->
+              </dd>
+            </dl>
+          </div>
+          <div>
+            <dl>
+              <dt>
+                <p>系辦公室地點：</p> <!-- 中間欄位的標題，可自行修改文字內容 -->
+              </dt>
+              <dd>
+                <p>W1011</p> <!-- 中間欄位的營業時間，可自行修改文字內容 -->
+              </dd>
+            </dl>
+            <dl>
+              <dt>
+                <p>聯絡信箱：</p> <!-- 中間欄位的標題，可自行修改文字內容 -->
+              </dt>
+              <dd>
+                <p>dept_pmi@stust.edu.tw</p> <!-- 中間欄位的營業時間，可自行修改文字內容 -->
+              </dd>
+            </dl>
+          </div>
+      </div>
+    </div>
+    <div class="bottom-container">
+      <div class="-container">
+        <!-- footer版權宣告 開始 -->
+        <div class="lf">
+          <p>
+            Copyright © Southern Taiwan University of Science and Technology All Rights Reserved. ｜ <a
+                href="https://www.stust.edu.tw/tc/privacy" target="_blank">Privacy Policy 隱私權政策</a>
+          </p>
+        </div>
+        <!-- footer版權宣告 結束 -->
+        <div class="rt">
+          <!--<a href="">
+            <img src="/Css/wdesign1/images/footer/icon-twitte.svg" alt="">
+            </a>
+          <a href="">
+            <img src="/Css/wdesign1/images/footer/icon-facebook.svg" alt="">
+            </a>
+          <a href="">
+            <img src="/Css/wdesign1/images/footer/icon-instagram.svg" alt="">
+            </a>
+          <a href="">
+            <img src="/Css/wdesign1/images/footer/icon-youtube.svg" alt="">
+            </a>-->
+        </div>
+      </div>
+    </div>
+    <!-- 浮動社群按鈕 開始 -->
+    <div class="fixed-bar">
+      <!--<a href="">
+        <img src="/Css/wdesign1/images/icon-fixed-fb.svg" alt="">
+        </a>
+      <a href="">
+        <img src="/Css/wdesign1/images/icon-fixed-ig.svg" alt="">
+        </a>
+      <a href="">
+        <img src="/Css/wdesign1/images/icon-fixed-yt.svg" alt="">
+        </a>-->
+      <div onclick="goTop();">
+        <img src="/Css/wdesign1/images/icon-fixed-gotop.svg" alt="">
+        </div>
+    </div>
+    <!-- 浮動社群按鈕 結束 -->
+  </footer>
+  <!-- 頁尾footer 結束 -->
+  <!-- 彈窗 開始 -->
+  <div class="-popup-wrap">
+    <!-- 分享彈窗 開始 -->
+    <div class="popup share-popup">
+      <div class="head">
+        <strong>分享檔案</strong>
+        <img src="/Css/wdesign1/images/icon-close.svg" alt="" onclick="popup.close();">
+        </div>
+      <div class="body">
+        <strong></strong>
+        <div class="link">
+          <p>http://mech.stust.edu.tw/tc/s/x0xkz15d</p>
+        </div>
+      </div>
+      <div class="bottom">
+        <div class="-theme-btn -blue">
+          <p>複製網址</p>
+        </div>
+        <div class="-theme-btn -org">
+          <p>開啟檔案</p>
+        </div>
+      </div>
+    </div>
+    <!-- 分享彈窗 結束 -->
+    <!-- 照片彈窗 開始 -->
+    <div class="popup photo-popup">
+      <div class="head">
+        <strong>照片</strong>
+        <img src="/Css/wdesign1/images/icon-close.svg" alt="" onclick="popup.close();">
+        </div>
+      <div class="body">
+        <div class="img-wrap">
+          <img src="/Css/wdesign1/images/photo-lg.png" alt="">
+          </div>
+      </div>
+    </div>
+    <!-- 照片彈窗 結束 -->
+  </div>
+  <!-- 彈窗 結束 -->
+</div>
+<script src="/Css/wdesign1/js/public.js?20231108"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  // 恢復卷軸位置
+  const scrollPosition = sessionStorage.getItem('scrollPosition');
+  if (scrollPosition) {
+  window.scrollTo(0, parseInt(scrollPosition));
+  }
+  // 清除 sessionStorage 中的卷軸位置
+  sessionStorage.removeItem('scrollPosition');
+
+  // 為分頁連結綁定點擊事件
+  const paginationLinks = document.querySelectorAll('div.-pagination-wrap a');
+  paginationLinks.forEach(link => {
+  link.addEventListener('click', function () {
+  // 儲存當前卷軸位置
+  sessionStorage.setItem('scrollPosition', window.scrollY);
+  });
+  });
+  });
+</script>
+    <form method="post" action="../../Default-v2.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMTQ0MDY3MzczZGSMzhxYD95QSp+MeCo1UR7zoBLiYUG/y2BBheGfrgCloA==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C411524E" /></form>
+</body>
+</html>
