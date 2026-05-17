@@ -10,6 +10,8 @@
 - 尚未啟用 GitHub Pages。
 - 尚未產生公開展示網址。
 - 2026-05-17：已將首頁 demo 檔案放在 repo root，方便 GitHub Pages 直接發布。
+- 2026-05-17 20:44 Asia/Taipei：已建立本機 Git commit `40bf5d6`，commit message: `Build PMI homepage demo`。
+- 2026-05-17 20:44 Asia/Taipei：此環境尚未安裝 `gh`，因此還不能由 CLI 直接建立新 GitHub repo 或啟用 Pages。
 
 ## 建議 repo 名稱
 
